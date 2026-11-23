@@ -1,0 +1,5 @@
+test
+.env*
+*.token
+*.secret
+oauth.json

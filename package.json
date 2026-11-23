@@ -1,0 +1,35 @@
+{
+  "name": "github-mcp",
+  "version": "0.1.0",
+  "description": "A small remote MCP server that gives the Gemini app (and other MCP clients) read and write access to GitHub. No dependencies.",
+  "type": "module",
+  "private": true,
+  "bin": {
+    "github-mcp": "bin/github-mcp.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "files": [
+    "bin",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marciob/github-mcp.git"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "github",
+    "gemini",
+    "oauth"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "start": "node bin/github-mcp.mjs serve"
+  }
+}
