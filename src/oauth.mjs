@@ -33,6 +33,7 @@ export const DEFAULT_REDIRECT_HOSTS = [
   "oauth-redirect-sandbox.googleusercontent.com",
   "oauth-redirect-test.googleusercontent.com",
   "claude.ai",
+  "chatgpt.com",
   "localhost",
   "127.0.0.1",
 ];

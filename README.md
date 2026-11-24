@@ -85,7 +85,7 @@ The server is on a public URL, and its GitHub token can write code. These are th
    - A client such as Gemini registers itself, then sends you to an approval page.
    - The page asks for the approval secret. With no secret, there is no token.
    - The approval secret opens only the approval page. It is not a bearer token.
-3. **Allowed redirect hosts.** A client can register only with a redirect URI on an allowed host. The default list has the Gemini hosts, `claude.ai` and localhost.
+3. **Allowed redirect hosts.** A client can register only with a redirect URI on an allowed host. The default list has the Gemini hosts, `claude.ai`, `chatgpt.com` and localhost.
 4. **Short tokens.**
    - Access tokens last 1 hour, and refresh tokens last 30 days.
    - Each refresh token works one time.
@@ -135,7 +135,7 @@ On GitHub, open Settings > Developer settings > Fine-grained tokens > Generate n
 | `READ_ONLY` | no | off | `1`: only the read tools. |
 | `ADMIN_TOOLS` | no | off | `1`: add the settings tools. The token needs Administration: Read and write. |
 | `PROTECTED_BRANCHES` | no | none | Branches with no force reset and no delete, such as `main,release/*`. |
-| `ALLOWED_REDIRECT_HOSTS` | no | Gemini, claude.ai, localhost | OAuth redirect hosts. `*` allows any https host. |
+| `ALLOWED_REDIRECT_HOSTS` | no | Gemini, claude.ai, chatgpt.com, localhost | OAuth redirect hosts. `*` allows any https host. |
 | `HOST` | no | `127.0.0.1` | Listen address. Use `0.0.0.0` in Docker. |
 | `PORT` | no | `7814` | Listen port. |
 | `DATA_DIR` | no | `~/.github-mcp` | OAuth clients and tokens. |
