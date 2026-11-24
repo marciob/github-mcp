@@ -22,7 +22,7 @@ Version 0.1.0. The read and write tools work, with tests and a live test on gith
 
 ## Tools
 
-Read (12):
+Read (13):
 
 | Tool | What it does |
 |---|---|
@@ -38,6 +38,7 @@ Read (12):
 | `get_pull_request` | Gives a pull request with its diff, and optionally its comments and reviews. |
 | `list_issues` | Lists issues. |
 | `get_issue` | Gives an issue with its comments. |
+| `get_repo_settings` | Gives visibility, fork source, archive state, features, merge options and topics. For a fork, it says if the fork can leave its fork network. |
 
 Write (8):
 
@@ -52,7 +53,16 @@ Write (8):
 | `create_or_update_issue` | Opens or edits an issue. |
 | `add_comment` | Comments on an issue or a pull request. |
 
-No tool deletes a repository or changes settings, branch protection, collaborators, webhooks or secrets. Each write can be undone.
+Settings (2, only with `ADMIN_TOOLS=1`):
+
+| Tool | What it does |
+|---|---|
+| `update_repo_settings` | Changes visibility, archive, default branch, description, homepage, features and merge options. Visibility, archive and default branch also need `confirm` set to `owner/repo`. The result gives the old values. |
+| `set_repo_topics` | Replaces the topics. The result gives the old topics. |
+
+GitHub has no API to leave a fork network. `get_repo_settings` gives the settings page, where the owner clicks Danger Zone > Leave fork network.
+
+No tool deletes or transfers a repository, or changes branch protection, collaborators, webhooks or secrets. Each write can be undone.
 
 Set `READ_ONLY=1` to remove the write tools. Set `PROTECTED_BRANCHES` (such as `main,release/*`) to refuse `reset_branch` and `delete_branch` on those branches.
 
@@ -102,6 +112,7 @@ On GitHub, open Settings > Developer settings > Fine-grained tokens > Generate n
    | Actions | Read |
    | Commit statuses | Read |
    | Workflows | Read and write (only to change files in `.github/workflows/`) |
+| Administration | Read and write (only with `ADMIN_TOOLS=1`) |
 
    For a read-only server, set each permission to Read.
 3. Put the token in a file that only you can read:
@@ -122,6 +133,7 @@ On GitHub, open Settings > Developer settings > Fine-grained tokens > Generate n
 | `ADMIN_TOKEN_FILE` | no | none | A fixed bearer token, for curl or for clients that take a header. 32 characters or more. |
 | `REPOS` | no | `*` | Repositories that the tools can touch, such as `alice/*,acme/api`. |
 | `READ_ONLY` | no | off | `1`: only the read tools. |
+| `ADMIN_TOOLS` | no | off | `1`: add the settings tools. The token needs Administration: Read and write. |
 | `PROTECTED_BRANCHES` | no | none | Branches with no force reset and no delete, such as `main,release/*`. |
 | `ALLOWED_REDIRECT_HOSTS` | no | Gemini, claude.ai, localhost | OAuth redirect hosts. `*` allows any https host. |
 | `HOST` | no | `127.0.0.1` | Listen address. Use `0.0.0.0` in Docker. |
@@ -210,7 +222,7 @@ The function reads the token table of that server in a Neon Postgres database ov
    | `AUTH_SERVER` | Issuer URL of the OAuth server. |
    | `AUTH_SCOPE` | Scope of this server. Default `github`. |
    | `PUBLIC_URL` | `https://<your-project>.vercel.app/api/mcp` |
-   | `REPOS`, `PROTECTED_BRANCHES`, `READ_ONLY` | As above. |
+   | `REPOS`, `PROTECTED_BRANCHES`, `READ_ONLY`, `ADMIN_TOOLS` | As above. |
 
 3. In the OAuth server, register `PUBLIC_URL` as a resource with the scope `AUTH_SCOPE`.
 4. Deploy again, so the function reads the variables.

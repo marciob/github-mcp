@@ -5,7 +5,7 @@ import { createServer, MODERN } from "../src/rpc.mjs";
 import { createApp } from "../src/app.mjs";
 import { fakeGitHub, config } from "./fake-github.mjs";
 
-const { server } = createApp({ config: config(), fetch: fakeGitHub({}).fetch });
+const { server } = createApp({ config: config({ adminTools: true }), fetch: fakeGitHub({}).fetch });
 
 test("initialize answers with the version that the client asked for, and instructions", async () => {
   const r = await server.handle({ jsonrpc: "2.0", id: 1, method: "initialize", params: { protocolVersion: "2025-11-25", capabilities: {} } });

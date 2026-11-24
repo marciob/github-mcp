@@ -41,7 +41,7 @@ async function main([cmd, ...rest]) {
     const oauth = oauthOf(config);
     const running = await serveHttp({ server, adminToken: config.adminToken, oauth, route: config.route, host: config.host, port: config.port, log });
     log(`github-mcp ${packageVersion()} listens on http://${config.host}:${running.port}${config.route} for ${config.publicUrl}`);
-    log(`${tools.length} tools${config.readOnly ? " (read-only)" : ""}. Repositories: ${config.repos.join(", ")}. Protected branches: ${config.protectedBranches.join(", ") || "none"}`);
+    log(`${tools.length} tools${config.readOnly ? " (read-only)" : ""}${config.adminTools && !config.readOnly ? " (with settings tools)" : ""}. Repositories: ${config.repos.join(", ")}. Protected branches: ${config.protectedBranches.join(", ") || "none"}`);
     if (config.approvalSecretFile) log(`approval secret: in ${config.approvalSecretFile}`);
     const stop = () => running.close().then(() => process.exit(0));
     process.on("SIGTERM", stop);

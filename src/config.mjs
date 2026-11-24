@@ -72,6 +72,7 @@ export function loadConfig(env = process.env) {
     repos: env.REPOS ? csv(env.REPOS) : ["*"],
     protectedBranches: csv(env.PROTECTED_BRANCHES),
     readOnly: ["1", "true", "yes"].includes(String(env.READ_ONLY ?? "").toLowerCase()),
+    adminTools: ["1", "true", "yes"].includes(String(env.ADMIN_TOOLS ?? "").toLowerCase()),
     redirectHosts: env.ALLOWED_REDIRECT_HOSTS ? csv(env.ALLOWED_REDIRECT_HOSTS) : DEFAULT_REDIRECT_HOSTS,
   };
 }

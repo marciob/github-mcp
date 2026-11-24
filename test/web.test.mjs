@@ -47,7 +47,7 @@ test("a valid token reaches the MCP server, and a notification gets 202", async 
   assert.equal((await r.json()).result.protocolVersion, "2025-11-25");
   assert.equal((await post({ jsonrpc: "2.0", method: "notifications/initialized" }, "good")).status, 202);
   const list = await (await post({ jsonrpc: "2.0", id: 2, method: "tools/list" }, "good")).json();
-  assert.equal(list.result.tools.length, 20);
+  assert.equal(list.result.tools.length, 21);
 });
 
 test("bad bodies, batches and other paths are refused", async () => {

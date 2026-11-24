@@ -11,7 +11,7 @@
 //   AUTH_SERVER         issuer URL of the OAuth server, such as https://auth.example.com
 //   AUTH_SCOPE          scope of this server, default "github"
 //   PUBLIC_URL          public URL of the MCP endpoint, such as https://github-mcp.example.app/api/mcp
-//   REPOS, PROTECTED_BRANCHES, READ_ONLY, GITHUB_API_URL   as in README.md
+//   REPOS, PROTECTED_BRANCHES, READ_ONLY, ADMIN_TOOLS, GITHUB_API_URL   as in README.md
 import crypto from "node:crypto";
 import { createApp } from "../src/app.mjs";
 import { createWebHandler } from "../src/web.mjs";
@@ -28,6 +28,7 @@ const { server } = createApp({
     repos: env.REPOS ? csv(env.REPOS) : ["*"],
     protectedBranches: csv(env.PROTECTED_BRANCHES),
     readOnly: ["1", "true", "yes"].includes(String(env.READ_ONLY ?? "").toLowerCase()),
+    adminTools: ["1", "true", "yes"].includes(String(env.ADMIN_TOOLS ?? "").toLowerCase()),
   },
 });
 
